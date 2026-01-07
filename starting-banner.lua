@@ -5,6 +5,8 @@
 -- ╚██████╔╝███████╗██║   ██║   ╚██████╗██║  ██║      ██║  ██║╚██████╔╝██████╔╝
 --  ╚═════╝ ╚══════╝╚═╝   ╚═╝    ╚═════╝╚═╝  ╚═╝      ╚═╝  ╚═╝ ╚═════╝ ╚═════╝
 
+-- obfuscated by chatgpt as i dont know how to
+
 -- Services
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
@@ -17,8 +19,6 @@ gui.Name = "LeftBannerGui"
 gui.ResetOnSpawn = false
 gui.Parent = player:WaitForChild("PlayerGui")
 
--- glitch hub --
-
 -- Banner Frame
 local banner = Instance.new("Frame")
 banner.Name = "Banner"
@@ -27,23 +27,25 @@ banner.BackgroundColor3 = Color3.fromRGB(30, 30, 30) -- dark color
 banner.BorderSizePixel = 0
 
 -- Size: small width, full height
-banner.Size = UDim2.new(0, 120, 1, 0) -- change 120 to make it wider/narrower
+banner.Size = UDim2.new(0, 120, 1, 0) -- change width if you want
+banner.Position = UDim2.new(0, -120, 0, 0) -- start off-screen
 
--- Start off-screen (left)
-banner.Position = UDim2.new(0, -120, 0, 0)
+-- Round only top-right corner
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 30) -- 30 pixels radius
+corner.Parent = banner
+corner.CornerType = Enum.CornerType.TopRight -- <-- only top-right
 
 -- Tween settings
 local tweenInfo = TweenInfo.new(
-	0.6, -- time
+	0.6,
 	Enum.EasingStyle.Quint,
 	Enum.EasingDirection.Out
 )
 
--- End position (visible)
 local goal = {
-	Position = UDim2.new(0, 0, 0, 0)
+	Position = UDim2.new(0, 0, 0, 0) -- end position
 }
 
--- Play tween
 local tween = TweenService:Create(banner, tweenInfo, goal)
 tween:Play()
